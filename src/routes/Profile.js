@@ -1,6 +1,7 @@
 import { auth } from 'fbase'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router';
+import PropTypes from 'prop-types';
 
 export const Profile = ({ refreshUser, userObj }) => {
     const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
@@ -23,12 +24,24 @@ export const Profile = ({ refreshUser, userObj }) => {
     }
 
     return (
-        <>
-            <form onSubmit={onSubmit}>
-                <input type="text" value={newDisplayName} onChange={onChange} placeholder="Display name" />
-                <input type="submit" value="Profile Update" />
+        <div className="container">
+            <form onSubmit={onSubmit} className="profileForm">
+                <input type="text" value={newDisplayName} onChange={onChange} placeholder="Display name" autoFocus className="formInput" />
+                <input type="submit"
+                    value="Update Profile"
+                    className="formBtn"
+                    style={{
+                        marginTop: 10,
+                    }} />
             </form>
-            <button onClick={onLogOutClick}>Log Out</button>
-        </>
+            <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
+                Log Out
+            </span>
+        </div>
     )
+}
+
+Profile.propTypes = {
+    refreshUser: PropTypes.func,
+    userObj: PropTypes.object
 }
